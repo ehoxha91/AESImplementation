@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="LookupTables.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +168,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\Desktop\AES.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Explanations.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

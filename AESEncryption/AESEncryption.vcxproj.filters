@@ -21,6 +21,9 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LookupTables.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -39,5 +42,10 @@
     <None Include="..\..\..\..\Desktop\AES.pdf">
       <Filter>AES Documentation</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Explanations.txt">
+      <Filter>AES Documentation</Filter>
+    </Text>
   </ItemGroup>
 </Project>

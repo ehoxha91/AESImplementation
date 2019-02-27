@@ -1,0 +1,87 @@
+Dot product of two vectors with same number of items: 
+take each corresponding element multiply them together
+and then sum all these products. 
+
+Example:
+(*) - Galois field multiplication
+ 11010110	   (*)		00110110 = 
+(x7 +x6 + x4 + x2  x1)	(*)	(x5 + x4 + x2  x1) = 
+  | 1   2   4   5
+-------------------
+1 | 2   3   5   6
+2 | 3   4   6   7
+4 | 5   6   8   9
+6 | 7   8   10  11		12th bit(MSB)		    0th bit(LSB)
+7 | 8   9   11  12   => 1 0 1 0 1 0 1 0 1 0 1 0 0
+
+To be sure that it will always fit we reduce the result
+using a specially selected polynomial:
+specialPolynomial = (x^8 + x^4 + x^3 + x^1 + x^0) = (100011011)
+Shifted_ToMach_MSBs_Of_PrevResult(1000110110000)
+
+	(1010101010100) 
+XOR (1000110110000)  (magic polynomial shifted)
+--------------------
+Res:(0010011100100)
+XOR (--100011011)	 (magic polynomial shifted to mach MSB that is 1
+-------------------
+Res:  (00010001011) since this value is less than our magic polynomial
+this is the result we want.
+
+
+//RECAP
+[0x57 0x68 0x61 0x74]^T * [0x02 0x03 0x01 0x01] =??
+
+1st member:
+
+0x57 = 01010111 = (x^6 + x^4 + x^2+ x^1 + x^0)
+0x02 = 00000010 = (x^1)
+
+0x57 (*) 0x02
+(x^6 + x^4 + x^2+ x^1 + x^0) * (x^1)
+
+	1
+0	1
+1	2
+2	3
+4	5
+6	7   Result => 1 0 1 0 1 1 1 0
+
+We reduce it with tha spectial polynomial
+(x^8 + x^4 + x^3 + x^1 + x^0) = (100011011)
+
+(-10101110) = 0xAE
+(100011011)
+
+since the result is less than the polynomial we take it as the result.
+
+2nd member:
+
+0x68 = 01101000 = (x^6 + x^5 + x^3)
+0x03 = 00000011 = (x^1 + x^1)
+
+0x68 (*) 0x03
+
+	0	1
+3	3	4
+5	5	6
+6	6	7   Result => 1 0 1 1 1 0 0 0
+
+We reduce it with tha spectial polynomial
+(x^8 + x^4 + x^3 + x^1 + x^0) = (100011011)
+
+(-10111000) = 0xB8
+(100011011)
+
+since the result is less than the polynomial we take it as the result.
+.
+.
+.
+and so on...
+
+
+
+//Key Expansion Core:
+	1. Rotate Left
+	2. S-Box
+	3. Rcon
